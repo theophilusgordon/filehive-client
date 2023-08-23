@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Login } from '../components/login-form/login.interface';
+import { AuthResponse } from './interfaces/auth-response.interface';
 import { HttpClient } from '@angular/common/http';
+import { SignIn } from './interfaces/signin.interface';
+import { SignUp } from './interfaces/signup.interface';
+import { ForgotPassword } from './interfaces/forgot-password.interface';
+import { ResetPassword } from './interfaces/reset-password.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-	private apiUrl = 'http://localhost:5000/auth'
+  private apiUrl = 'http://localhost:5000/auth';
   constructor(private http: HttpClient) {}
 
-  signIn(data: any): Observable<Login> {
-	return this.http.post<Login>(`${this.apiUrl}/sign-in`, data)
+  signIn(data: SignIn): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/sign-in`, data);
   }
 
-  signUp() {}
+  signUp(data: SignUp): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/sign-up`, data);
+  }
 
-  forgotPassword() {}
+  forgotPassword(data: ForgotPassword): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/forgot-password`, data);
+  }
 
-  resetPassword() {}
+  resetPassword(data: ResetPassword): Observable<AuthResponse> {
+    return this.http.patch<AuthResponse>(`${this.apiUrl}/reset-password`, data);
+  }
 }

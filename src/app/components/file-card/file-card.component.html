@@ -1,0 +1,13 @@
+<div class="d-flex align-items-center justify-content-between">
+	<fa-icon [icon]="faFile"></fa-icon>
+	<p class="fs-6">{{getFormattedDate(file.createdAt)}}</p>
+	<p class="fw-bold">{{ file.title }}</p>
+	<p>{{ file.size }}</p>
+
+	<button class="btn btn-secondary btn-sm">
+		<fa-icon [icon]="faShare"></fa-icon>
+	</button>
+	<button class="btn btn-primary btn-sm" (click)="previewFile()">
+		<fa-icon [icon]="faDownload"></fa-icon>
+	</button>
+</div>

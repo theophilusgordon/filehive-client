@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from "@angular/common/http"
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,12 +17,21 @@ import { ForgotPasswordFormComponent } from './components/forgot-password-form/f
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserComponent } from './pages/user/user.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { FileCardComponent } from './components/file-card/file-card.component';
+import { SidePanelComponent } from './components/side-panel/side-panel.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FileCardsComponent } from './components/file-cards/file-cards.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'user', component: UserComponent },
+  { path: 'admin', component: AdminComponent },
 ];
 @NgModule({
   declarations: [
@@ -36,6 +45,12 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     ResetPasswordFormComponent,
     ResetPasswordComponent,
+    UserComponent,
+    AdminComponent,
+    FileCardComponent,
+    SidePanelComponent,
+    HeaderComponent,
+    FileCardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,8 +58,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
-	HttpClientModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

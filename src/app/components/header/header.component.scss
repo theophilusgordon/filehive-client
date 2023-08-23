@@ -1,0 +1,33 @@
+$btn-color: #ff7c5c;
+
+.btn-bg {
+  background-color: $btn-color;
+  color: #f8f8f8;
+  font-weight: 600;
+
+  &:hover {
+    background-color: darken($btn-color, 10%);
+  }
+}
+
+.text-orange {
+  color: $btn-color;
+}
+
+.search {
+  width: 30vw;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #101828;
+  background-color: #eeeded;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  }
+}

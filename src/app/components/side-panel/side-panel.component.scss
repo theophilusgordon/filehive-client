@@ -1,0 +1,7 @@
+$primary-color: #fcbaaa;
+
+.side-panel {
+	width: 6rem;
+	background-color: $primary-color;
+	height: calc(100vh - 6rem);
+}

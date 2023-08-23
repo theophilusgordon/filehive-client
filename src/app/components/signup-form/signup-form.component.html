@@ -6,14 +6,14 @@
 				<div class="form-floating">
 					<input type="text" name="firstName" id="firstName" class="form-control form-control-sm"
 						placeholder="First Name" [(ngModel)]="firstName" required>
-					<label for="firstName">First Name</label>
+					<label for="firstName"><fa-icon [icon]="faUserAlt"></fa-icon> First Name</label>
 					<div class="invalid-feedback">{{firstNameErrorMessage}}</div>
 					<div class="valid-feedback">{{firstNameSuccessMessage}}</div>
 				</div>
 				<div class="form-floating">
 					<input type="text" name="lastName" id="lastName" class="form-control form-control-sm"
 						placeholder="Last Name" [(ngModel)]="lastName" required>
-					<label for="lastName">Last Name</label>
+					<label for="lastName"><fa-icon [icon]="faUserAlt"></fa-icon> Last Name</label>
 					<div class="invalid-feedback">{{lastNameErrorMessage}}</div>
 					<div class="valid-feedback">{{lastNameSuccessMessage}}</div>
 				</div>
@@ -21,7 +21,7 @@
 			<div class="form-floating">
 				<input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email"
 					[(ngModel)]="email" required>
-				<label for="email">Email</label>
+				<label for="email"><fa-icon [icon]="faEnvelopeSquare"></fa-icon> Email</label>
 				<div class="invalid-feedback">{{emailErrorMessage}}</div>
 				<div class="valid-feedback">{{emailSuccessMessage}}</div>
 			</div>
@@ -29,7 +29,7 @@
 			<div class="form-floating">
 				<input type="password" name="password" id="password" class="form-control form-control-sm"
 					[(ngModel)]="password" placeholder="Password" required>
-				<label for="password">Password</label>
+				<label for="password"><fa-icon [icon]="faEyeSlash"></fa-icon> Password</label>
 				<div class="invalid-feedback">{{passwordErrorMessage}}</div>
 				<div class="valid-feedback">{{passwordSuccessMessage}}</div>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="form-floating">
 				<input type="password" name="confirmPassword" id="confirmPassword" class="form-control form-control-sm"
 					[(ngModel)]="confirmPassword" placeholder="Confirm Password" required>
-				<label for="confirmPassword">Confirm Password</label>
+				<label for="confirmPassword"><fa-icon [icon]="faEyeSlash"></fa-icon> Confirm Password</label>
 				<div class="invalid-feedback">{{confirmPasswordErrorMessage}}</div>
 				<div class="valid-feedback">{{confirmPasswordSuccessMessage}}</div>
 			</div>
@@ -46,7 +46,7 @@
 		</form>
 		<div class="mt-5">
 			<p class="text-center">Or sign up with</p>
-			<button class="btn btn-lg btn-outline-dark fw-bold text-gray w-100">Google</button>
+			<button class="btn btn-lg btn-outline-dark fw-bold  w-100 d-flex align-items-center justify-content-center gap-3"><img src="../../../assets/icons8-google-48.png" alt="Google Icon">Google</button>
 		</div>
 		<div class="d-flex align-items-center justify-content-center mt-5">
 			<p class="text-center mt-3 text-gray">Already have an account? </p><a routerLink="/"

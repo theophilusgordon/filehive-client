@@ -1,4 +1,12 @@
 import { Component, Input } from '@angular/core';
+import {
+  faEnvelopeSquare,
+  faEyeSlash,
+  faUserAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
+import { SignUp } from 'src/app/services/interfaces/signup.interface';
 
 @Component({
   selector: 'app-signup-form',
@@ -11,6 +19,18 @@ export class SignupFormComponent {
   confirmPassword: string = '';
   firstName: string = '';
   lastName: string = '';
+
+  response: AuthResponse = {
+    access_token: '',
+    id: '',
+    role: '',
+  };
+
+  faEnvelopeSquare = faEnvelopeSquare;
+  faEyeSlash = faEyeSlash;
+  faUserAlt = faUserAlt;
+
+  constructor(private authService: AuthService) {}
 
   @Input() emailErrorMessage: string = 'Invalid Email';
   @Input() emailSuccessMessage: string = 'Valid Email';
@@ -26,6 +46,17 @@ export class SignupFormComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.email, this.password);
+
+    this.authService
+      .signUp({
+        email: this.email,
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      })
+      .subscribe((response) => {
+        this.response = response;
+      });
   }
 }

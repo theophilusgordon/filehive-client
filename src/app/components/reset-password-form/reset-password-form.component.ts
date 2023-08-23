@@ -1,4 +1,9 @@
 import { Component, Input } from '@angular/core';
+import {
+  faEyeSlash,
+} from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
 
 @Component({
   selector: 'app-reset-password-form',
@@ -8,6 +13,17 @@ import { Component, Input } from '@angular/core';
 export class ResetPasswordFormComponent {
   password: string = '';
   confirmPassword: string = '';
+  token: string = ''
+
+  faEyeSlash = faEyeSlash;
+
+  response: AuthResponse = {
+    access_token: '',
+    id: '',
+    role: '',
+  };
+
+  constructor(private authService: AuthService) {}
 
   @Input() passwordErrorMessage: string = 'Invalid Password';
   @Input() passwordSuccessMessage: string = 'Valid Password';
@@ -17,6 +33,14 @@ export class ResetPasswordFormComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.password);
+    this.authService
+      .resetPassword({
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+		token: this.token
+      })
+      .subscribe((response) => {
+        this.response = response;
+      });
   }
 }
