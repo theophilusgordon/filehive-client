@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { File } from './interfaces/file.interface';
+import { CreateFile } from './interfaces/create-file.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class FileService {
     });
   }
 
-  createFile(data: File): Observable<File> {
+  createFile(data: CreateFile): Observable<File> {
     return this.http.post<File>(`${this.apiUrl}/`, data, {
       headers: this.getHeaders(),
     });

@@ -1,13 +1,16 @@
-<div class="d-flex align-items-center justify-content-between">
-	<fa-icon [icon]="faFile"></fa-icon>
-	<p class="fs-6">{{getFormattedDate(file.createdAt)}}</p>
-	<p class="fw-bold">{{ file.title }}</p>
-	<p>{{ file.size }}</p>
+<div class="d-flex align-items-center justify-content-between bg-light my-2 p-2 rounded">
+	<fa-icon [icon]="faFilePdf" class="fs-4 primary-color"></fa-icon>
+	<p class="fs-6 col-2 my-auto text-secondary">{{file.createdAt | date}}</p>
+	<p class="fw-semibold col-5 my-auto text-dark">{{ file.title }}</p>
+	<p class="col-1 my-auto text-secondary">{{ file.size }}</p>
 
-	<button class="btn btn-secondary btn-sm">
+	<button class="btn btn-secondary btn-sm col-1">
 		<fa-icon [icon]="faShare"></fa-icon>
 	</button>
-	<button class="btn btn-primary btn-sm" (click)="previewFile()">
+	<button class="btn btn-primary btn-sm col-1" (click)="previewFile()">
 		<fa-icon [icon]="faDownload"></fa-icon>
+	</button>
+	<button *ngIf="userRole === 'ADMIN'" class="btn btn-danger btn-sm col-1" (click)="deleteFile()">
+		<fa-icon [icon]=" faTrash"></fa-icon>
 	</button>
 </div>

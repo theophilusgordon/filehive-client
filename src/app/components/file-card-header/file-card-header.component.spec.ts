@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminComponent } from './admin.component';
+import { FileCardHeaderComponent } from './file-card-header.component';
 
-describe('AdminComponent', () => {
-  let component: AdminComponent;
-  let fixture: ComponentFixture<AdminComponent>;
+describe('FileCardHeaderComponent', () => {
+  let component: FileCardHeaderComponent;
+  let fixture: ComponentFixture<FileCardHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminComponent ]
+      declarations: [ FileCardHeaderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminComponent);
+    fixture = TestBed.createComponent(FileCardHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

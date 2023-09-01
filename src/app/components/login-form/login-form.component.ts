@@ -19,8 +19,15 @@ export class LoginFormComponent {
 
   response: AuthResponse = {
     access_token: '',
-    id: '',
-    role: '',
+    user: {
+      id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      otherNames: '',
+      profilePhoto: '',
+      role: '',
+    },
   };
 
   faEnvelopeSquare = faEnvelopeSquare;
@@ -40,27 +47,16 @@ export class LoginFormComponent {
       .signIn({ email: this.email, password: this.password })
       .pipe(
         catchError((error) => {
-          for (let errorMessage of error.error.message) {
-            if (errorMessage.split(' ')[0] === 'email') {
-              this.emailErrorMessage = error.error.message;
-            } else {
-              this.passwordErrorMessage = error.error.message;
-            }
-          }
           return throwError(() => error);
         })
       )
       .subscribe((response) => {
         this.response = response;
 
-        if (this.response.access_token !== '') {
-          sessionStorage.setItem('token', this.response.access_token);
-          sessionStorage.setItem('userId', this.response.id);
+        sessionStorage.setItem('token', response.access_token);
+        sessionStorage.setItem('user', JSON.stringify(response.user));
 
-          if (this.response.role === 'ADMIN') this.router.navigate(['/admin']);
-
-          if (this.response.role === 'USER') this.router.navigate(['/user']);
-        }
+        this.router.navigate(['/dashboard']);
       });
   }
 }

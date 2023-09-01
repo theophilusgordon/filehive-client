@@ -1,33 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { User } from 'src/app/services/interfaces/user.interface';
-import { UserService } from 'src/app/services/user.service';
 import {
- faPlus
+  faPlus,
+  faUserCircle,
+  faUserEdit,
+  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  private userId: string = sessionStorage.getItem('userId')!;
-  user: User = {
-    id: '',
-    email: '',
-    profilePhoto: '',
-    firstName: '',
-    lastName: '',
-    otherNames: '',
-  };
+export class HeaderComponent {
+  user: User = JSON.parse(sessionStorage.getItem('user')!);
+
+  @ViewChild(AddFileModalComponent)
+  addFileModalComponent!: AddFileModalComponent;
+
+  dropDownIsOpen: boolean = false;
 
   faPlus = faPlus;
+  faUserCircle = faUserCircle;
+  faUserEdit = faUserEdit;
+  faSignOutAlt = faSignOutAlt;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private modalService: NgbModal,
+    private activeModalService: NgbActiveModal
+  ) {}
 
-  ngOnInit(): void {
-    this.userService.getUser(this.userId).subscribe((response) => {
-      this.user = response;
-    });
+  openAddFileModal() {
+    this.modalService.open(this.addFileModalComponent);
+  }
+
+  closeAddFileModal() {
+    this.activeModalService.close();
+  }
+
+  toggleDropDown() {
+    this.dropDownIsOpen = !this.dropDownIsOpen;
+  }
+
+  signOut() {
+    sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 }

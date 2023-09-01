@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { File } from 'src/app/services/interfaces/file.interface';
 import {
-  faFile,
+  faFilePdf,
   faDownload,
   faUpload,
   faShare,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 
@@ -14,6 +15,8 @@ import * as moment from 'moment';
   styleUrls: ['./file-card.component.scss'],
 })
 export class FileCardComponent {
+  userRole = JSON.parse(sessionStorage.getItem('user')!).role;
+
   @Input() file: File = {
     id: '',
     url: '',
@@ -24,18 +27,18 @@ export class FileCardComponent {
     updatedAt: '',
   };
 
-  faFile = faFile;
+  faFilePdf = faFilePdf;
   faDownload = faDownload;
   faUpload = faUpload;
   faShare = faShare;
-
+  faTrash = faTrash;
 
   previewFile() {
     window.open(this.file.url, '_blank');
   }
 
-  getFormattedDate(dateString: string): string {
-    const date = new Date(dateString);
-    return moment(date).format('Do MMMM, YYYY');
+  deleteFile() {
+    console.log('delete');
   }
+
 }

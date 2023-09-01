@@ -1,7 +1,12 @@
 $primary-color: #fcbaaa;
+$btn-color: #ff7c5c;
 
 .side-panel {
-	width: 6rem;
-	background-color: $primary-color;
-	height: calc(100vh - 6rem);
+  width: 6rem;
+  background-color: $primary-color;
+  height: calc(100vh - 6rem);
+}
+
+.icon-color {
+  color: darken($btn-color, 10%);
 }

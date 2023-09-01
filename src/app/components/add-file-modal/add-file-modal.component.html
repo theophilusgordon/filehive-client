@@ -1,0 +1,27 @@
+<ng-template #addFileModal let-modal>
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add File</h4>
+				<button class="close" data-dismiss="modal" aria-label="close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-floating">
+					<input type="text" name="title" id="title" class="form-control form-control-sm"
+						placeholder="File Title">
+					<label for="title">File Title</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-color" (click)="addFile()">
+					ADD FILE
+				</button>
+				<button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">
+					CANCEL
+				</button>
+			</div>
+		</div>
+	</div>
+</ng-template>

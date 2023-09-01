@@ -1,9 +1,13 @@
 $btn-color: #ff7c5c;
 
 .button-bg {
-  background-color: $btn-color;
+  background-color: darken($btn-color, 10%);
   color: #f8f8f8;
   font-weight: 600;
+
+  &:hover {
+	background-color: $btn-color;
+  }
 }
 
 .text-orange {

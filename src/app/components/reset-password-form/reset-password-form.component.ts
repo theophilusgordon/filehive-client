@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
 
@@ -13,14 +11,21 @@ import { AuthResponse } from 'src/app/services/interfaces/auth-response.interfac
 export class ResetPasswordFormComponent {
   password: string = '';
   confirmPassword: string = '';
-  token: string = ''
+  token: string = '';
 
   faEyeSlash = faEyeSlash;
 
   response: AuthResponse = {
     access_token: '',
-    id: '',
-    role: '',
+    user: {
+      id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      otherNames: '',
+      profilePhoto: '',
+	  role: ''
+    },
   };
 
   constructor(private authService: AuthService) {}
@@ -37,7 +42,7 @@ export class ResetPasswordFormComponent {
       .resetPassword({
         password: this.password,
         confirmPassword: this.confirmPassword,
-		token: this.token
+        token: this.token,
       })
       .subscribe((response) => {
         this.response = response;

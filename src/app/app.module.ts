@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AuthPanelComponent } from './components/auth-panel/auth-panel.component';
@@ -18,20 +18,20 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { UserComponent } from './pages/user/user.component';
-import { AdminComponent } from './pages/admin/admin.component';
 import { FileCardComponent } from './components/file-card/file-card.component';
 import { SidePanelComponent } from './components/side-panel/side-panel.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FileCardsComponent } from './components/file-cards/file-cards.component';
+import { FileCardHeaderComponent } from './components/file-card-header/file-card-header.component';
+import { AddFileModalComponent } from './components/add-file-modal/add-file-modal.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 @NgModule({
   declarations: [
@@ -45,12 +45,13 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     ResetPasswordFormComponent,
     ResetPasswordComponent,
-    UserComponent,
-    AdminComponent,
     FileCardComponent,
     SidePanelComponent,
     HeaderComponent,
     FileCardsComponent,
+    FileCardHeaderComponent,
+    AddFileModalComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

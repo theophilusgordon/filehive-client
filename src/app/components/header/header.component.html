@@ -1,11 +1,21 @@
-<div>
+<div class="">
 	<div class="d-flex gap-5 align-items-center">
-		<button class="btn btn-bg"><fa-icon [icon]="faPlus"></fa-icon> New File</button>
-		<input type="text" name="search" id="search" class="rounded input-size search"
-			placeholder="Search for a file">
-
+		<button *ngIf="user.role === 'ADMIN'" class="btn btn-bg" (click)="openAddFileModal()" data-toggle="modal" data-target="#addFileModal"><fa-icon
+				[icon]="faPlus"></fa-icon> New File</button>
+		<input type="text" name="search" id="search" class="rounded search" placeholder="Search for a file">
+		<div class="d-flex align-items-center gap-3 ms-auto">
+			<button class="btn profile-photo d-flex align-items-center gap-2 text-secondary" (click)="toggleDropDown()">
+				<img *ngIf="user.profilePhoto" src={{user.profilePhoto}} alt="Profile Photo">
+				<fa-icon *ngIf="!user.profilePhoto" [icon]="faUserCircle" class="fs-2 text-gray"></fa-icon>
+				<p class="my-auto text-gray">{{user.role | titlecase}}</p>
+			</button>
+			<div *ngIf="dropDownIsOpen" class="w-10 position-absolute top-5 bg-light  p-3 rounded shadow-sm">
+				<button class="btn text-gray"><fa-icon [icon]="faUserEdit" class="fs-5 me-2"></fa-icon> Profile</button>
+				<button class="btn text-gray" (click)="signOut()"> <fa-icon [icon]="faSignOutAlt"
+						class="fs-5 me-2"> </fa-icon>Logout</button>
+			</div>
+		</div>
 	</div>
 	<div>
 		<h2 class="my-4">Hello, {{user.firstName || "there"}}!</h2>
 	</div>
-</div>

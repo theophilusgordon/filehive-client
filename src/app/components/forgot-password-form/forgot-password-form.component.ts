@@ -15,8 +15,15 @@ export class ForgotPasswordFormComponent {
 
   response: AuthResponse = {
     access_token: '',
-    id: '',
-    role: '',
+    user: {
+      id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      otherNames: '',
+      profilePhoto: '',
+	  role: ''
+    },
   };
 
   faEnvelopeSquare = faEnvelopeSquare;

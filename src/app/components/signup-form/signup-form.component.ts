@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faEnvelopeSquare,
   faEyeSlash,
-  faUserAlt
+  faUserAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
-import { SignUp } from 'src/app/services/interfaces/signup.interface';
 
 @Component({
   selector: 'app-signup-form',
@@ -22,15 +22,22 @@ export class SignupFormComponent {
 
   response: AuthResponse = {
     access_token: '',
-    id: '',
-    role: '',
+    user: {
+      id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      otherNames: '',
+      profilePhoto: '',
+      role: '',
+    },
   };
 
   faEnvelopeSquare = faEnvelopeSquare;
   faEyeSlash = faEyeSlash;
   faUserAlt = faUserAlt;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   @Input() emailErrorMessage: string = 'Invalid Email';
   @Input() emailSuccessMessage: string = 'Valid Email';
@@ -57,6 +64,11 @@ export class SignupFormComponent {
       })
       .subscribe((response) => {
         this.response = response;
+
+        sessionStorage.setItem('token', response.access_token);
+        sessionStorage.setItem('user', JSON.stringify(response.user));
+
+        this.router.navigate(['/dashboard']);
       });
   }
 }

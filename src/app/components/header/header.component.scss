@@ -1,17 +1,27 @@
+$primary-color: #fcbaaa;
 $btn-color: #ff7c5c;
+$text-gray: #667085;
 
 .btn-bg {
-  background-color: $btn-color;
+  background-color: darken($btn-color, 10%);
   color: #f8f8f8;
   font-weight: 600;
 
   &:hover {
-    background-color: darken($btn-color, 10%);
+    background-color: $btn-color;
   }
 }
 
-.text-orange {
-  color: $btn-color;
+.text-orange { 
+  color: darken($btn-color, 10%);
+}
+
+.text-gray {
+	color: darken($text-gray, 20%);
+}
+
+.primary-bg {
+	background-color: $primary-color;
 }
 
 .search {
@@ -19,10 +29,10 @@ $btn-color: #ff7c5c;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #101828;
-  background-color: #eeeded;
+  background-color: #eaecf0;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
 
@@ -30,4 +40,12 @@ $btn-color: #ff7c5c;
     outline: none;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   }
+}
+
+.top-5 {
+	top: 6rem;
+}
+
+.w-10 {
+	width: 9rem;
 }
