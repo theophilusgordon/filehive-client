@@ -10,7 +10,7 @@
 	<button class="btn btn-primary btn-sm col-1" (click)="previewFile()">
 		<fa-icon [icon]="faDownload"></fa-icon>
 	</button>
-	<button *ngIf="userRole === 'ADMIN'" class="btn btn-danger btn-sm col-1" (click)="deleteFile()">
+	<button *ngIf="userRole === 'ADMIN'" class="btn btn-danger btn-sm col-1" (click)="onDeleteFile()">
 		<fa-icon [icon]=" faTrash"></fa-icon>
 	</button>
 </div>

@@ -1,0 +1,11 @@
+$btn-color: #ff7c5c;
+
+.btn-bg {
+  background-color: darken($btn-color, 10%);
+  color: #f8f8f8;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $btn-color;
+  }
+}

@@ -1,27 +1,38 @@
-<ng-template #addFileModal let-modal>
+<div>
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add File</h4>
-				<button class="close" data-dismiss="modal" aria-label="close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-floating">
-					<input type="text" name="title" id="title" class="form-control form-control-sm"
-						placeholder="File Title">
-					<label for="title">File Title</label>
+			<form [class.was-validated]="isSubmitted" novalidate>
+				<div class="modal-header">
+					<h4 class="modal-title">Add File</h4>
+					<button class="close btn" (click)="dismissModal()">
+						<span aria-hidden="true" class="fs-2">&times;</span>
+					</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-color" (click)="addFile()">
-					ADD FILE
-				</button>
-				<button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">
-					CANCEL
-				</button>
-			</div>
+				<div class="modal-body">
+					<div class="form-floating mb-3">
+						<input type="text"  name="title" id="title"
+							class="form-control form-control-sm" [(ngModel)]="title"required placeholder="File Title">
+						<label for="title">File Title</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" name="description" id="description" class="form-control form-control-sm "
+							[(ngModel)]="description" placeholder="File Description">
+						<label for="description">File Description</label>
+					</div>
+					<label for="file" class="btn btn-primary"><input type="file" name="file" id="file" accept=".pdf"
+							(change)="handleFile($event)" class="form-control form-control-sm d-none"
+							placeholder="Upload File"><fa-icon [icon]="faFileUpload" class="fs-5 me-2"></fa-icon>Upload
+						File</label>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-bg" (click)="onAddFile()">
+						ADD FILE
+					</button>
+					<button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">
+						CANCEL
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
-</ng-template>
+</div>

@@ -35,7 +35,7 @@ export class HeaderComponent {
   ) {}
 
   openAddFileModal() {
-    this.modalService.open(this.addFileModalComponent);
+    this.modalService.open(AddFileModalComponent);
   }
 
   closeAddFileModal() {

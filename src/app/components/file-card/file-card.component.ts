@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { File } from 'src/app/services/interfaces/file.interface';
 import {
   faFilePdf,
@@ -7,7 +7,6 @@ import {
   faShare,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-file-card',
@@ -16,6 +15,8 @@ import * as moment from 'moment';
 })
 export class FileCardComponent {
   userRole = JSON.parse(sessionStorage.getItem('user')!).role;
+
+  @Output() onFileDelete: EventEmitter<File> = new EventEmitter()
 
   @Input() file: File = {
     id: '',
@@ -37,8 +38,8 @@ export class FileCardComponent {
     window.open(this.file.url, '_blank');
   }
 
-  deleteFile() {
-    console.log('delete');
+  onDeleteFile() {
+    this.onFileDelete.emit(this.file)
   }
 
 }

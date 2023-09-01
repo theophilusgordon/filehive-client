@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FileService } from 'src/app/services/file.service';
-import { catchError, throwError } from 'rxjs';
+import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
+import { CreateFile } from 'src/app/services/interfaces/create-file.interface';
 
 @Component({
   selector: 'app-add-file-modal',
@@ -9,27 +9,28 @@ import { catchError, throwError } from 'rxjs';
   styleUrls: ['./add-file-modal.component.scss'],
 })
 export class AddFileModalComponent {
-  constructor(
-    private fileService: FileService,
-    public activeModal: NgbActiveModal
-  ) {}
-
   title: string = '';
-  description: string = ''
-  file: any = null
+  description: string = '';
+  file: any = null;
 
-  addFile() {
-    this.fileService.createFile({
+  @Output() onFileAdd: EventEmitter<CreateFile> = new EventEmitter();
+
+  @Input() isSubmitted: boolean = false;
+
+  faFileUpload = faFileUpload;
+
+  constructor(public activeModal: NgbActiveModal) {}
+
+  handleFile(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  onAddFile() {
+    this.onFileAdd.emit({
       title: this.title,
       description: this.description,
-	  file: this.file
-    }).pipe(
-		catchError((error) => {
-			return throwError(() => error)
-		})
-	).subscribe((response) => {
-		console.log(response)
-	});
+      file: this.file,
+    });
     this.activeModal.dismiss();
   }
 

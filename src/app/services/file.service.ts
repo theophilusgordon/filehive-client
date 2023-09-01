@@ -27,7 +27,7 @@ export class FileService {
   }
 
   getFile(id: string): Observable<File> {
-    return this.http.get<File>(`${this.apiUrl}/${id}`, {
+    return this.http.get<File>(`${this.apiUrl}/file/${id}`, {
       headers: this.getHeaders(),
     });
   }
@@ -39,13 +39,13 @@ export class FileService {
   }
 
   updateFile(id: string, data: File): Observable<File> {
-    return this.http.patch<File>(`${this.apiUrl}/${id}`, data, {
+    return this.http.patch<File>(`${this.apiUrl}/file/${id}`, data, {
       headers: this.getHeaders(),
     });
   }
 
   deleteFile(id: string): Observable<File> {
-    return this.http.delete<File>(`${this.apiUrl}/${id}`, {
+    return this.http.delete<File>(`${this.apiUrl}/file/${id}`, {
       headers: this.getHeaders(),
     });
   }
