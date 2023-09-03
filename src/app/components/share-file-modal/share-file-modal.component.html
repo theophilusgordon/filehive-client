@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content">
+		<form [class.was-validated]="isSubmitted" novalidate>
+			<div class="modal-header">
+				<h4 class="modal-title">Share File</h4>
+				<button class="close btn" (click)="dismissModal()">
+					<span aria-hidden="true" class="fs-2">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-floating mb-3">
+					<input type="email" name="email" id="email" class="form-control form-control-sm" [(ngModel)]="email"
+						required placeholder="Email">
+					<label for="email">Email</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" (click)="onShareFile()">
+					<fa-icon [icon]="faShare"></fa-icon>
+					SHARE FILE
+				</button>
+				<button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">
+					<fa-icon [icon]="faTimes"></fa-icon>
+					CANCEL
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

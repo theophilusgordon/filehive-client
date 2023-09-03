@@ -18,9 +18,6 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class HeaderComponent {
   user: User = JSON.parse(sessionStorage.getItem('user')!);
 
-  @ViewChild(AddFileModalComponent)
-  addFileModalComponent!: AddFileModalComponent;
-
   dropDownIsOpen: boolean = false;
 
   faPlus = faPlus;

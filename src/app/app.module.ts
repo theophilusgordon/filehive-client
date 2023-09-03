@@ -25,6 +25,8 @@ import { FileCardsComponent } from './components/file-cards/file-cards.component
 import { FileCardHeaderComponent } from './components/file-card-header/file-card-header.component';
 import { AddFileModalComponent } from './components/add-file-modal/add-file-modal.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DeleteFileModalComponent } from './components/delete-file-modal/delete-file-modal.component';
+import { ShareFileModalComponent } from './components/share-file-modal/share-file-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -52,6 +54,8 @@ const appRoutes: Routes = [
     FileCardHeaderComponent,
     AddFileModalComponent,
     DashboardComponent,
+    DeleteFileModalComponent,
+    ShareFileModalComponent,
   ],
   imports: [
     BrowserModule,

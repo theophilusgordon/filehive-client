@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { FileSharingService } from 'src/app/services/file-sharing.service';
 import { FileService } from 'src/app/services/file.service';
 import { CreateFile } from 'src/app/services/interfaces/create-file.interface';
 import { File } from 'src/app/services/interfaces/file.interface';
@@ -12,31 +13,37 @@ import { File } from 'src/app/services/interfaces/file.interface';
 export class FileCardsComponent implements OnInit {
   @Input() files: File[] = [];
 
-  constructor(private fileService: FileService) {}
+  constructor(
+    private fileService: FileService,
+    private fileSharingService: FileSharingService
+  ) {}
 
   ngOnInit(): void {
     this.fileService.getFiles().subscribe((response) => {
       this.files = response;
     });
-  }
 
-  addFile(event: any) {
-	console.log(event)
-    // this.fileService
-    //   .createFile(file)
-    //   .pipe(
-    //     catchError((error) => {
-    //       return throwError(() => error);
-    //     })
-    //   )
-    //   .subscribe((response) => {
-    //     this.files.push(response);
-    //   });
+    this.fileSharingService.createdFile$.subscribe(
+      (newFile: CreateFile | null) => {
+        if (newFile) {
+          this.fileService
+            .createFile(newFile)
+            .pipe(
+              catchError((error) => {
+                return throwError(() => error);
+              })
+            )
+            .subscribe((response) => {
+              this.files.push(response);
+            });
+        }
+      }
+    );
   }
 
   deleteFile(file: File) {
-    this.fileService.deleteFile(file.id).subscribe((response) => {
-      this.files = this.files.filter((file) => file.id !== response.id);
-    });
+      this.fileService.deleteFile(file.id).subscribe((response) => {
+        this.files = this.files.filter((file) => file.id !== response.id);
+      });
   }
 }

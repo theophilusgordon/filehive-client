@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
+import { faFileUpload, faUpload, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CreateFile } from 'src/app/services/interfaces/create-file.interface';
+import { FileSharingService } from 'src/app/services/file-sharing.service';
 
 @Component({
   selector: 'app-add-file-modal',
@@ -18,19 +19,26 @@ export class AddFileModalComponent {
   @Input() isSubmitted: boolean = false;
 
   faFileUpload = faFileUpload;
+  faUpload = faUpload;
+  faTimes = faTimes;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private fileSharingService: FileSharingService
+  ) {}
 
   handleFile(event: any) {
     this.file = event.target.files[0];
   }
 
   onAddFile() {
-    this.onFileAdd.emit({
-      title: this.title,
-      description: this.description,
-      file: this.file,
-    });
+    const formData = new FormData();
+    formData.append('file', this.file);
+    formData.append('title', this.title);
+    formData.append('description', this.description);
+
+    this.fileSharingService.shareCreatedFile(formData);
+
     this.activeModal.dismiss();
   }
 

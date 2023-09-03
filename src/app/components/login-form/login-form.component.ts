@@ -33,13 +33,13 @@ export class LoginFormComponent {
   faEnvelopeSquare = faEnvelopeSquare;
   faEyeSlash = faEyeSlash;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
   @Input() emailErrorMessage: string = 'Invalid Email';
   @Input() emailSuccessMessage: string = 'Valid Email';
   @Input() passwordErrorMessage: string = 'Invalid Password';
   @Input() passwordSuccessMessage: string = 'Valid Password';
   @Input() isSubmitted: boolean = false;
+  
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
     this.isSubmitted = true;

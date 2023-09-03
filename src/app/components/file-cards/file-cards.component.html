@@ -1,4 +1,8 @@
 <div class="bg-gray p-3 rounded vw-50 vh-50 overflow-y-scroll">
 	<app-file-card-header></app-file-card-header>
-	<app-file-card *ngFor="let file of files" [file]="file" (onFileDelete)="deleteFile(file)"></app-file-card>
+	<app-file-card 
+	*ngFor="let file of files" 
+	[file]="file" 
+	(onFileDelete)="deleteFile(file)"
+	></app-file-card>
 </div>

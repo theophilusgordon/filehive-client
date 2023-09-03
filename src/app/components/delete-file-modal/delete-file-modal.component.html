@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Delete File</h4>
+				<button class="close btn" (click)="dismissModal()">
+					<span aria-hidden="true" class="fs-2">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete this file?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" (click)="onDeleteFile()">
+					<fa-icon [icon]="faTrash"></fa-icon>
+					DELETE FILE
+				</button>
+				<button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">
+					<fa-icon [icon]="faTimes"></fa-icon>
+					CANCEL
+				</button>
+			</div>
+	</div>
+</div>

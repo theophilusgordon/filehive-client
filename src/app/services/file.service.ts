@@ -10,15 +10,14 @@ import { CreateFile } from './interfaces/create-file.interface';
 export class FileService {
   private apiUrl = 'http://localhost:5000/files';
 
+  constructor(private http: HttpClient) {}
+
   private getHeaders(): HttpHeaders {
     const token = sessionStorage.getItem('token');
     return new HttpHeaders({
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
   }
-
-  constructor(private http: HttpClient) {}
 
   getFiles(): Observable<File[]> {
     return this.http.get<File[]>(`${this.apiUrl}/`, {
@@ -33,7 +32,7 @@ export class FileService {
   }
 
   createFile(data: CreateFile): Observable<File> {
-    return this.http.post<File>(`${this.apiUrl}/`, data, {
+    return this.http.post<File>(`${this.apiUrl}/upload`, data, {
       headers: this.getHeaders(),
     });
   }
@@ -48,5 +47,9 @@ export class FileService {
     return this.http.delete<File>(`${this.apiUrl}/file/${id}`, {
       headers: this.getHeaders(),
     });
+  }
+
+  downloadFile(file: File): Observable<Blob> {
+    return this.http.get(file.url, { responseType: 'blob' });
   }
 }
