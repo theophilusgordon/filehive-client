@@ -5,6 +5,7 @@ import {
   faEyeSlash,
   faUserAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
 
@@ -39,29 +40,31 @@ export class SignupFormComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  @Input() emailErrorMessage: string = 'Invalid Email';
-  @Input() emailSuccessMessage: string = 'Valid Email';
-  @Input() firstNameErrorMessage: string = 'Invalid First Name';
-  @Input() firstNameSuccessMessage: string = 'Valid First Name';
-  @Input() lastNameErrorMessage: string = 'Invalid Last Name';
-  @Input() lastNameSuccessMessage: string = 'Valid Last Name';
-  @Input() passwordErrorMessage: string = 'Invalid Password';
-  @Input() passwordSuccessMessage: string = 'Valid Password';
-  @Input() confirmPasswordErrorMessage: string = 'Invalid Password';
-  @Input() confirmPasswordSuccessMessage: string = 'Valid Password';
+  isServerError: boolean = false;
+
+  @Input() serverError: string[] = [];
   @Input() isSubmitted: boolean = false;
 
   onSubmit() {
     this.isSubmitted = true;
 
+	const userInfo = {
+    email: this.email,
+    password: this.password,
+    confirmPassword: this.confirmPassword,
+    firstName: this.firstName,
+    lastName: this.lastName,
+  };
+
     this.authService
-      .signUp({
-        email: this.email,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
-        firstName: this.firstName,
-        lastName: this.lastName,
-      })
+      .signUp(userInfo)
+      .pipe(
+        catchError((error) => {
+          this.isServerError = true;
+          this.serverError = error.error.message;
+          return throwError(() => error);
+        })
+      )
       .subscribe((response) => {
         this.response = response;
 
@@ -71,4 +74,5 @@ export class SignupFormComponent {
         this.router.navigate(['/dashboard']);
       });
   }
+
 }

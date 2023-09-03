@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthResponse } from 'src/app/services/interfaces/auth-response.interface';
 
@@ -24,16 +25,15 @@ export class ResetPasswordFormComponent {
       lastName: '',
       otherNames: '',
       profilePhoto: '',
-	  role: ''
+      role: '',
     },
   };
 
   constructor(private authService: AuthService) {}
 
-  @Input() passwordErrorMessage: string = 'Invalid Password';
-  @Input() passwordSuccessMessage: string = 'Valid Password';
-  @Input() confirmPasswordErrorMessage: string = 'Invalid Password';
-  @Input() confirmPasswordSuccessMessage: string = 'Valid Password';
+  isServerError: boolean = false;
+
+  @Input() serverError: string = '';
   @Input() isSubmitted: boolean = false;
 
   onSubmit() {
@@ -44,6 +44,13 @@ export class ResetPasswordFormComponent {
         confirmPassword: this.confirmPassword,
         token: this.token,
       })
+      .pipe(
+        catchError((error) => {
+          this.isServerError = true;
+          this.serverError = error.error.message;
+          return throwError(() => error);
+        })
+      )
       .subscribe((response) => {
         this.response = response;
       });

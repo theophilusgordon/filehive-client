@@ -1,52 +1,80 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
 	<div class="w-75 ">
 		<h2 class="fw-bold fs-3 text-dark py-2">Sign up for an account</h2>
-		<form class="d-flex flex-column gap-2" [class.was-validated]="isSubmitted" novalidate>
+		<form class="d-flex flex-column gap-2" [class.was-validated]="isSubmitted" novalidate #signupForm="ngForm">
 			<div class="input-group">
-				<div class="form-floating">
+				<div class="form-floating form-group">
 					<input type="text" name="firstName" id="firstName" class="form-control form-control-sm"
-						placeholder="First Name" [(ngModel)]="firstName" required>
+						minlength="2" maxlength="15" placeholder="First Name" [(ngModel)]="firstName" required
+						#firstNameInput="ngModel">
 					<label for="firstName"><fa-icon [icon]="faUserAlt"></fa-icon> First Name</label>
-					<div class="invalid-feedback">{{firstNameErrorMessage}}</div>
-					<div class="valid-feedback">{{firstNameSuccessMessage}}</div>
+					<div class="alert alert-danger" *ngIf="firstNameInput.invalid && (firstNameInput.touched)">
+						<div *ngIf="firstNameInput.hasError('required')">First Name is required.</div>
+						<div *ngIf="firstNameInput.hasError('minlength')">First Name must be at least 2 characters long.
+						</div>
+						<div *ngIf="firstNameInput.hasError('maxlength')">First Name cannot be more than 15 characters
+							long.</div>
+					</div>
 				</div>
-				<div class="form-floating">
-					<input type="text" name="lastName" id="lastName" class="form-control form-control-sm"
-						placeholder="Last Name" [(ngModel)]="lastName" required>
+				<div class="form-floating form-group">
+					<input type="text" name="lastName" id="lastName" minlength="2" maxlength="15"
+						class="form-control form-control-sm" placeholder="Last Name" [(ngModel)]="lastName" required
+						#lastNameInput="ngModel">
 					<label for="lastName"><fa-icon [icon]="faUserAlt"></fa-icon> Last Name</label>
-					<div class="invalid-feedback">{{lastNameErrorMessage}}</div>
-					<div class="valid-feedback">{{lastNameSuccessMessage}}</div>
+					<div class="alert alert-danger" *ngIf="lastNameInput.invalid && (lastNameInput.touched)">
+						<div *ngIf="lastNameInput.hasError('required')">Last Name is required.</div>
+						<div *ngIf="lastNameInput.hasError('minlength')">Last Name must be at least 2 characters long.
+						</div>
+						<div *ngIf="lastNameInput.hasError('maxlength')">Last Name cannot be more than 15 characters
+							long.</div>
+					</div>
 				</div>
 			</div>
-			<div class="form-floating">
+			<div class="form-floating form-group">
 				<input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email"
-					[(ngModel)]="email" required>
+					[(ngModel)]="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+					#emailInput="ngModel">
 				<label for="email"><fa-icon [icon]="faEnvelopeSquare"></fa-icon> Email</label>
-				<div class="invalid-feedback">{{emailErrorMessage}}</div>
-				<div class="valid-feedback">{{emailSuccessMessage}}</div>
+				<div class="alert alert-danger" *ngIf="emailInput.invalid && emailInput.touched">
+					<div *ngIf="emailInput.hasError('required')">Email is required.</div>
+					<div *ngIf="emailInput.hasError('pattern')">Invalid email format.</div>
+				</div>
 			</div>
 
-			<div class="form-floating">
+			<div class="form-floating from-group">
 				<input type="password" name="password" id="password" class="form-control form-control-sm"
-					[(ngModel)]="password" placeholder="Password" required>
+					[(ngModel)]="password" placeholder="Password"
+					pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" required
+					#passwordInput="ngModel">
 				<label for="password"><fa-icon [icon]="faEyeSlash"></fa-icon> Password</label>
-				<div class="invalid-feedback">{{passwordErrorMessage}}</div>
-				<div class="valid-feedback">{{passwordSuccessMessage}}</div>
+				<div class="alert alert-danger" *ngIf="passwordInput.invalid && (passwordInput.touched)">
+					<div *ngIf="passwordInput.hasError('required')">Password is required.</div>
+					<div *ngIf="passwordInput.hasError('pattern')">Password must contain at least 8 characters,
+						including one uppercase letter, one lowercase letter, one digit, and one
+						special character.</div>
+				</div>
 			</div>
 
-			<div class="form-floating">
+			<div class="form-floating form-group">
 				<input type="password" name="confirmPassword" id="confirmPassword" class="form-control form-control-sm"
-					[(ngModel)]="confirmPassword" placeholder="Confirm Password" required>
+					[(ngModel)]="confirmPassword" placeholder="Confirm Password" required
+					#confirmPasswordInput="ngModel">
 				<label for="confirmPassword"><fa-icon [icon]="faEyeSlash"></fa-icon> Confirm Password</label>
-				<div class="invalid-feedback">{{confirmPasswordErrorMessage}}</div>
-				<div class="valid-feedback">{{confirmPasswordSuccessMessage}}</div>
+				<div class="alert alert-danger" *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched">
+					<div *ngIf="confirmPasswordInput.hasError('required')">Confirm Password is required.</div>
+					<div *ngIf="password !== confirmPassword">Passwords do not match.</div>
+				</div>
 			</div>
 
-			<button class="btn btn-block button-bg w-100" (click)="onSubmit()">Submit</button>
+			<div *ngIf="isServerError" class="alert alert-danger">{{serverError}}</div>
+			<button class="btn btn-block button-bg w-100" (click)="onSubmit()"
+				[disabled]="!signupForm.form.valid">Submit</button>
 		</form>
 		<div class="mt-5">
 			<p class="text-center">Or sign up with</p>
-			<button class="btn btn-lg btn-outline-dark fw-bold  w-100 d-flex align-items-center justify-content-center gap-3"><img src="../../../assets/icons8-google-48.png" alt="Google Icon">Google</button>
+			<button
+				class="btn btn-lg btn-outline-dark fw-bold  w-100 d-flex align-items-center justify-content-center gap-3"><img
+					src="../../../assets/icons8-google-48.png" alt="Google Icon">Google</button>
 		</div>
 		<div class="d-flex align-items-center justify-content-center mt-5">
 			<p class="text-center mt-3 text-gray">Already have an account? </p><a routerLink="/"

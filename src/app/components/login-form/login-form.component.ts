@@ -33,12 +33,11 @@ export class LoginFormComponent {
   faEnvelopeSquare = faEnvelopeSquare;
   faEyeSlash = faEyeSlash;
 
-  @Input() emailErrorMessage: string = 'Invalid Email';
-  @Input() emailSuccessMessage: string = 'Valid Email';
-  @Input() passwordErrorMessage: string = 'Invalid Password';
-  @Input() passwordSuccessMessage: string = 'Valid Password';
+  isServerError: boolean = false;
+
+  @Input() serverError: string = '';
   @Input() isSubmitted: boolean = false;
-  
+
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
@@ -47,6 +46,8 @@ export class LoginFormComponent {
       .signIn({ email: this.email, password: this.password })
       .pipe(
         catchError((error) => {
+          this.isServerError = true;
+		  this.serverError = error.error.message
           return throwError(() => error);
         })
       )

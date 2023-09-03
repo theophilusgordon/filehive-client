@@ -4,6 +4,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { AuthResponse } from '../../services/interfaces/auth-response.interface';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -30,8 +31,8 @@ export class ForgotPasswordFormComponent {
 
   constructor(private authService: AuthService) {}
 
-  @Input() emailErrorMessage: string = 'Invalid Email';
-  @Input() emailSuccessMessage: string = 'Valid Email';
+  isServerError: boolean = false;
+  @Input() serverError: string = '';
   @Input() isSubmitted: boolean = false;
 
   onSubmit() {
@@ -39,6 +40,13 @@ export class ForgotPasswordFormComponent {
 
     this.authService
       .forgotPassword({ email: this.email })
+      .pipe(
+        catchError((error) => {
+          this.isServerError = true;
+          this.serverError = error.error.message;
+          return throwError(() => error);
+        })
+      )
       .subscribe((response) => {
         this.response = response;
       });

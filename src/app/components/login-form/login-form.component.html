@@ -1,26 +1,30 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
 	<div class="w-75 ">
 		<h2 class="fw-bold fs-3 text-dark py-2">Sign in to your account</h2>
-		<form class="d-flex flex-column gap-2" [class.was-validated]="isSubmitted" novalidate>
-			<div class="form-floating">
-				<input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email"
-					[(ngModel)]="email" required>
+		<form class="d-flex flex-column gap-2" [class.was-validated]="isSubmitted" novalidate #loginForm="ngForm">
+			<div class="form-floating form-group">
+			<input type="email" name="email" id="email" class="form-control form-control-sm " placeholder="Email"
+					[(ngModel)]="email" required #emailInput="ngModel">
 				<label for="email"><fa-icon [icon]="faEnvelopeSquare"></fa-icon> Email</label>
-				<div class="invalid-feedback">{{emailErrorMessage}}</div>
-				<div class="valid-feedback">{{emailSuccessMessage}}</div>
+				<div class="alert alert-danger" *ngIf="emailInput.invalid && emailInput.touched">
+					<div *ngIf="emailInput.hasError('required')">Email is required.</div>
+				</div>
 			</div>
 
-			<div class="form-floating">
+			<div class="form-floating form-group">
 				<input type="password" name="password" id="password" class="form-control form-control-sm"
 					[(ngModel)]="password" placeholder="Password" required>
 				<label for="password"><fa-icon [icon]="faEyeSlash"></fa-icon> Password</label>
-				<div class="invalid-feedback">{{passwordErrorMessage}}</div>
-				<div class="valid-feedback">{{passwordSuccessMessage}}</div>
+				<div class="alert alert-danger" *ngIf="emailInput.invalid && emailInput.touched">
+					<div *ngIf="emailInput.hasError('required')">Email is required.</div>
+				</div>
 			</div>
+
+			<div *ngIf="isServerError" class="alert alert-danger">{{serverError}}</div>
 
 			<a routerLink="forgot-password" class="ms-auto text-orange fw-semibold">Forgot password?</a>
 
-			<button class="btn btn-block button-bg w-100" (click)="onSubmit()">Submit</button>
+			<button class="btn btn-block button-bg w-100" (click)="onSubmit()" [disabled]="!loginForm.form.valid">Submit</button>
 		</form>
 		<div class="mt-5">
 			<p class="text-center">Or sign in with</p>
