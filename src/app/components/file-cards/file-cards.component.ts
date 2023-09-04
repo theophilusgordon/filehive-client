@@ -23,7 +23,7 @@ export class FileCardsComponent implements OnInit {
       this.files = response;
     });
 
-    this.fileSharingService.createdFile$.subscribe(
+    this.fileSharingService.sharedFile$.subscribe(
       (newFile: CreateFile | null) => {
         if (newFile) {
           this.fileService

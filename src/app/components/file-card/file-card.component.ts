@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteFileModalComponent } from '../delete-file-modal/delete-file-modal.component';
 import { ShareFileModalComponent } from '../share-file-modal/share-file-modal.component';
 import { FileService } from 'src/app/services/file.service';
+import { FileSharingService } from 'src/app/services/file-sharing.service';
 
 @Component({
   selector: 'app-file-card',
@@ -43,7 +44,8 @@ export class FileCardComponent {
 
   constructor(
     private modalService: NgbModal,
-    private fileService: FileService
+    private fileService: FileService,
+    private fileSharingService: FileSharingService
   ) {}
 
   openDeleteFileModal() {
@@ -54,18 +56,12 @@ export class FileCardComponent {
   }
 
   openShareFileModal() {
-    const modalRef = this.modalService.open(ShareFileModalComponent);
-    modalRef.componentInstance.onShare.subscribe(() => {
-      this.onShareFile();
-    });
+    this.fileSharingService.shareFile(this.file);
+    this.modalService.open(ShareFileModalComponent);
   }
 
   previewFile() {
     window.open(this.file.url, '_blank');
-  }
-
-  onShareFile() {
-    this.onFileShare.emit(this.file);
   }
 
   downloadFile() {

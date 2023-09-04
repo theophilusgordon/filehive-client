@@ -52,4 +52,12 @@ export class FileService {
   downloadFile(file: File): Observable<Blob> {
     return this.http.get(file.url, { responseType: 'blob' });
   }
+
+  sendFile(id: string, email: string): Observable<string> {
+    return this.http.post<string>(
+      `${this.apiUrl}/file/${id}/send`,
+      { email },
+      { headers: this.getHeaders() }
+    );
+  }
 }

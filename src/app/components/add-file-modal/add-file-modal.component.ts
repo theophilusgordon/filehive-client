@@ -37,7 +37,7 @@ export class AddFileModalComponent {
     formData.append('title', this.title);
     formData.append('description', this.description);
 
-    this.fileSharingService.shareCreatedFile(formData);
+    this.fileSharingService.shareFile(formData);
 
     this.activeModal.dismiss();
   }
