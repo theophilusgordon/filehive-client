@@ -11,7 +11,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteFileModalComponent } from '../delete-file-modal/delete-file-modal.component';
 import { ShareFileModalComponent } from '../share-file-modal/share-file-modal.component';
 import { FileService } from 'src/app/services/file.service';
-import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-file-card',

@@ -1,6 +1,7 @@
 <div class="d-flex align-items-center justify-content-between bg-info text-light my-2 p-2 rounded">
-	<div class="ms-3"></div>
+	<div *ngIf="userRole === 'ADMIN'" class="ms-3"></div>
 	<p class="fs-6 fw-semibold my-auto col-2">Date Uploaded</p>
+	<div *ngIf="userRole === 'USER'" class="col-1"></div>
 	<p class="fw-semibold col-5 my-auto">File Title</p>
 	<p class="col-1 fw-semibold my-auto">File Size</p>
 	<div class="col-1"></div>

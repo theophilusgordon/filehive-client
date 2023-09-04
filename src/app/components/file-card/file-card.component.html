@@ -2,7 +2,7 @@
 	<fa-icon [icon]="faFilePdf" class="fs-4 primary-color"></fa-icon>
 	<p class="fs-6 col-2 my-auto text-secondary">{{file.createdAt | date}}</p>
 	<p class="fw-semibold col-5 my-auto text-dark">{{ file.title }}</p>
-	<p class="col-1 my-auto text-secondary">{{ file.size }}</p>
+	<p class="col-1 my-auto text-secondary">{{ +file.size | fileSize }}</p>
 
 	<button class="btn btn-secondary btn-sm col-1" (click)="openShareFileModal()">
 		<fa-icon [icon]="faShare"></fa-icon>

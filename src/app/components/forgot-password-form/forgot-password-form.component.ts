@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import {
-  faEnvelopeSquare,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelopeSquare } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { AuthResponse } from '../../services/interfaces/auth-response.interface';
 import { catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -23,17 +22,18 @@ export class ForgotPasswordFormComponent {
       lastName: '',
       otherNames: '',
       profilePhoto: '',
-	  role: ''
+      role: '',
     },
   };
 
   faEnvelopeSquare = faEnvelopeSquare;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   isServerError: boolean = false;
   @Input() serverError: string = '';
   @Input() isSubmitted: boolean = false;
+  @Input() checkMail: string = 'Please check your mail to reset your password'
 
   onSubmit() {
     this.isSubmitted = true;

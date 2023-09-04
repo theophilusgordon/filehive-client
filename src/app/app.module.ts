@@ -27,13 +27,16 @@ import { AddFileModalComponent } from './components/add-file-modal/add-file-moda
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DeleteFileModalComponent } from './components/delete-file-modal/delete-file-modal.component';
 import { ShareFileModalComponent } from './components/share-file-modal/share-file-modal.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { FileSizePipe } from './pipes/file-size.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
   declarations: [
@@ -56,6 +59,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     DeleteFileModalComponent,
     ShareFileModalComponent,
+    PageNotFoundComponent,
+    FileSizePipe,
   ],
   imports: [
     BrowserModule,

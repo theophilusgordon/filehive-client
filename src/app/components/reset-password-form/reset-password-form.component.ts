@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +10,7 @@ import { AuthResponse } from 'src/app/services/interfaces/auth-response.interfac
   templateUrl: './reset-password-form.component.html',
   styleUrls: ['./reset-password-form.component.scss'],
 })
-export class ResetPasswordFormComponent {
+export class ResetPasswordFormComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   token: string = '';
@@ -29,7 +30,17 @@ export class ResetPasswordFormComponent {
     },
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+	private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.token = params.get('token')!;
+    });
+  }
 
   isServerError: boolean = false;
 
@@ -53,6 +64,7 @@ export class ResetPasswordFormComponent {
       )
       .subscribe((response) => {
         this.response = response;
+		this.router.navigate(['/'])
       });
   }
 }
